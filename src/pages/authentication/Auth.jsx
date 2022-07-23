@@ -1,56 +1,75 @@
-import React, { useState } from "react";
+import Login from "../../components/login/Login";
+import Signup from "../../components/signup/Signup";
+import { useState } from "react";
+import { useNavigate} from 'react-router-dom';
 import "./auth.css";
-import "../../components/login/login.css";
 
 function Auth() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [showSignup, setShowSignup] = useState(false);
+  const [loginMessage, setLoginMessage] = useState("");
+  const [errorMessageLogin, setErrorMessageLogin] = useState("");
+  const [errorMessageSignup, setErrorMessageSignup] = useState("");
 
-  const toggle = () => {}
+  const navigate = useNavigate();
+
+  const goToSignup = () => {
+    setShowSignup(true);
+  };
+
+  const goToLogin = () => {
+    setShowSignup(false);
+  };
+
+//   const redirectToPage = userType => {
+//     if (userType === ROLES.CUSTOMER) {
+//         navigate("/customer");
+//     } else if (userType === ROLES.CLIENT) {
+//         navigate("/client");
+//     } else {
+//         navigate("/admin");
+//     }
+// };
+
+  const handleLoginSubmit = (data) => {
+
+    console.log(data);
+    
+    navigate('/customer')
+
+    setErrorMessageLogin('login error');
+  };
+
+  const handleSignupSubmit = (data) => {
+    console.log(data);
+
+    setShowSignup(false);
+    setLoginMessage("signup successful! please login");
+    // 1. make an api call and post the data to signup
+    // 2. if api call is successful, redirect to login page
+    // 3. show a message to user that login is successful
+
+    // if submit is successful
+    setErrorMessageSignup('signup error');
+    // if submit is failure
+    // dont call setignup(false)
+  };
+
+
   return (
-    <div className="container mt-5">
-      <div className="row d-flex justify-content-center">
-        <div className="col-md-6">
-          <div className="card px-5 py-4">
-            <h2 className="mb-4 text-center">Login Here</h2>
-            <div className="form-data">
-              <div className="forms-inputs mb-4">
-                <input
-                  autoComplete="off"
-                  type="text"
-                  name="email"
-                  className="form-control"
-                  onBlur={true}
-                  placeholder="Enter your Username"
-                />
-                
-              </div>
-              <div className="forms-inputs mb-4">
-                <input
-                  autoComplete="new-password"
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  onBlur={true}
-                  placeholder="Enter your Password"
-                />
-                
-              </div>
-              <div className="mb-3">
-                <button type="submit" className="btn btn-dark w-100">
-                  Login
-                </button>
-              </div>
-            </div>
-            <div className="success-data">
-              <div className="text-center d-flex flex-column">
-                <i className="bx bxs-badge-check"></i>
-              </div>
-            </div>
-            <span className="text-center text-secondary">Don't have an account <a href="" onClick={toggle}>signup here</a></span>
-          </div>
-        </div>
-      </div>
+    <div>
+      {showSignup ? (
+        <Signup
+          onSignupSubmit={handleSignupSubmit}
+          goToLogin={goToLogin}
+          errorMessageSignup={errorMessageSignup}
+        />
+      ) : (
+        <Login
+          onLoginSubmit={handleLoginSubmit}
+          goToSignup={goToSignup}
+          errorMessageLogin={errorMessageLogin}
+        />
+      )}
     </div>
   );
 }
