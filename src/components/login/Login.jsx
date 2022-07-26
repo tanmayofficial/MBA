@@ -65,7 +65,7 @@ function Login(props) {
                 {errorMessageSignup}
               </div>
             </form>
-              <div className="text-success m-1">{loginMessage}</div>
+              <div className="text-success text-center m-1">{loginMessage}</div>
           </div>
         </div>
       </div>

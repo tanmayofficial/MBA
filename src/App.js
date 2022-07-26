@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Auth from './pages/authentication/Auth';
+import Authentication from './pages/authentication/Authentication';
 import Customer from './pages/customer/Customer';
+import Admin from './pages/admin/Admin';
+import Client from './pages/client/Client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -10,8 +12,10 @@ function App() {
     <div className="">
       <Router>
         <Routes>
-          <Route path='/login' element={<Auth />} />
+          <Route path='/login' element={<Authentication />} />
           <Route path='/customer' element={<Customer />} />
+          <Route path='/admin' element={<Admin />} />
+          <Route path='/client' element={<Client />} />
         </Routes>
       </Router>
     </div>

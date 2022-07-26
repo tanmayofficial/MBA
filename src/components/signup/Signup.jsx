@@ -87,7 +87,7 @@ function Signup(props) {
                     <option defaultValue>User type</option>
                     <option value={userType}>{ROLES.CUSTOMER}</option>
                     <option value={userType}>{ROLES.CLIENT}</option>
-                    {/* <option value="ADMIN">{ROLES.ADMIN}</option> */}
+                    <option value={userType}>{ROLES.ADMIN}</option>
                   </select>
                 </div>
 
@@ -109,7 +109,7 @@ function Signup(props) {
                 </a>
               </div>
             </form>
-              <div className="error-msg text-danger m-1">
+              <div className="error-msg text-center text-danger m-1">
                 {errorMessageSignup}
               </div>
           </div>
