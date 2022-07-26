@@ -1,11 +1,11 @@
 import Login from "../../components/login/Login";
 import Signup from "../../components/signup/Signup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { newUserSignin, newUserSignup } from "../../api/auth";
-import "./auth.css";
 import { storeUserData } from "../../utils/userData";
 import { ROLES } from "../../constants/userRoles";
+import "./authentication.css";
 
 function Authentication() {
   const [showSignup, setShowSignup] = useState(false);
@@ -23,21 +23,33 @@ function Authentication() {
     setShowSignup(false);
   };
 
-    const redirectToPage = (userType) => {
-      if (userType === ROLES.CUSTOMER) {
-          navigate("/customer");
-      } else if (userType === ROLES.CLIENT) {
-          navigate("/client");
-      } else {
-          navigate("/admin");
-      }
+  const redirectToPage = (userType) => {
+    if (userType === ROLES.CUSTOMER) {
+      navigate("/customer");
+    } else if (userType === ROLES.CLIENT) {
+      navigate("/client");
+    } else {
+      navigate("/admin");
+    }
   };
+
+  useEffect(() => {
+    //   if () {
+    // if there is a query param that referrer = home
+    // navigate("/home")
+    // }
+    if (localStorage.getItem("accessToken")) {
+      const userType = localStorage.getItem("userTypes");
+      redirectToPage(userType);
+    }
+  }, []);
 
   const handleLoginSubmit = (data) => {
     newUserSignin(data)
       .then((response) => {
         console.log(response);
         const { status, data, message } = response;
+
         if (status === 200) {
           if (message) {
             // case when login credentials are incorrect
@@ -56,8 +68,14 @@ function Authentication() {
       })
       .catch((error) => {
         // case when api fails due to network/auth issue
-        setErrorMessageLogin(error?.response?.data?.message);
+        setErrorMessageLogin(error?.response?.data?.message || error?.message);
       });
+    // 1. make an api call and post the data
+    // 2. if api call is successful, redirect to concerned user
+    // 3.if api call is failure, show a message to user
+
+    // if login is failure
+    // dont redirect to next page
   };
 
   const handleSignupSubmit = (data) => {

@@ -7,7 +7,7 @@ function Login(props) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = e => {
-    const data = [userId,password];
+    const data = {userId,password};
     onLoginSubmit(data);
     e.preventDefault();
   }
@@ -29,7 +29,7 @@ function Login(props) {
                     onChange={(e) => {
                       setUserId(e.target.value);
                     }}
-                    placeholder="Enter your Username"
+                    placeholder="Enter your UserId"
                   />
                 </div>
                 <div className="forms-inputs mb-4">

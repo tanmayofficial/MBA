@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { Dropdown, DropdownButton } from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import { ROLES } from "../../constants/userRoles";
 import "./signup.css";
 
@@ -15,7 +15,7 @@ function Signup(props) {
     // 1. create the data  object
     // 2. call the onLoginSubmit with data
     // 3. e. prevent default to prevent submit
-    const data = [userId, password, userName, email, userType];
+    const data = { userId, password, name: userName, email, userType };
     onSignupSubmit(data);
     e.preventDefault();
   };
@@ -31,7 +31,7 @@ function Signup(props) {
                 <div className="forms-inputs mb-4">
                   <input
                     autoComplete="off"
-                    type="number"
+                    type="text"
                     className="form-control"
                     value={userId}
                     onChange={(e) => {
@@ -77,7 +77,26 @@ function Signup(props) {
                   />
                 </div>
                 <div className="forms-inputs mb-4">
-                  <select
+                  <label>User Type: </label>
+                  <DropdownButton
+                    align="end"
+                    title={userType}
+                    id="userType"
+                    className="form-control m-1"
+                    onSelect={(val) => {
+                      setUserType(val);
+                    }}
+                    variant="light"
+                  >
+                    <Dropdown.Item eventKey={ROLES.CUSTOMER}>
+                      {ROLES.CUSTOMER}
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey={ROLES.CLIENT}>
+                      {ROLES.CLIENT}
+                    </Dropdown.Item>
+                  </DropdownButton>
+
+                  {/* <select
                     className="form-select"
                     aria-label="Default select example"
                     onChange={(e) => {
@@ -88,7 +107,7 @@ function Signup(props) {
                     <option value={userType}>{ROLES.CUSTOMER}</option>
                     <option value={userType}>{ROLES.CLIENT}</option>
                     <option value={userType}>{ROLES.ADMIN}</option>
-                  </select>
+                  </select> */}
                 </div>
 
                 <div className="mb-3">
@@ -109,9 +128,9 @@ function Signup(props) {
                 </a>
               </div>
             </form>
-              <div className="error-msg text-center text-danger m-1">
-                {errorMessageSignup}
-              </div>
+            <div className="error-msg text-center text-danger m-1">
+              {errorMessageSignup}
+            </div>
           </div>
         </div>
       </div>
