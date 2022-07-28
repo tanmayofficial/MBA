@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+// import { Dropdown, DropdownButton } from "react-bootstrap";
 import { ROLES } from "../../constants/userRoles";
 import "./signup.css";
 
@@ -77,7 +77,7 @@ function Signup(props) {
                   />
                 </div>
                 <div className="forms-inputs mb-4">
-                  <label>User Type: </label>
+                  {/* <label>User Type: </label>
                   <DropdownButton
                     align="end"
                     title={userType}
@@ -94,9 +94,9 @@ function Signup(props) {
                     <Dropdown.Item eventKey={ROLES.CLIENT}>
                       {ROLES.CLIENT}
                     </Dropdown.Item>
-                  </DropdownButton>
+                  </DropdownButton> */}
 
-                  {/* <select
+                  <select
                     className="form-select"
                     aria-label="Default select example"
                     onChange={(e) => {
@@ -104,10 +104,10 @@ function Signup(props) {
                     }}
                   >
                     <option defaultValue>User type</option>
-                    <option value={userType}>{ROLES.CUSTOMER}</option>
-                    <option value={userType}>{ROLES.CLIENT}</option>
-                    <option value={userType}>{ROLES.ADMIN}</option>
-                  </select> */}
+                    <option value={ROLES.CUSTOMER}>{ROLES.CUSTOMER}</option>
+                    <option value={ROLES.CLIENT}>{ROLES.CLIENT}</option>
+                    <option value={ROLES.ADMIN}>{ROLES.ADMIN}</option>
+                  </select>
                 </div>
 
                 <div className="mb-3">
