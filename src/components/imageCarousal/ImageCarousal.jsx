@@ -14,6 +14,7 @@ function ImageCarousal(props) {
                 className="d-block w-100"
                 src={image}
                 alt={`slide ${index + 1}`}
+                key={index+1}
               />
             </CCarouselItem>
           );
