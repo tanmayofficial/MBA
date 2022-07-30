@@ -3,7 +3,7 @@ import LoaderImg from "../../assets/load.gif";
 
 function Loader() {
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center align-items-center text-center">
       <img src={LoaderImg} alt="page loading" />
     </div>
   );

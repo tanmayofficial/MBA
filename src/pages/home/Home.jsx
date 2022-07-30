@@ -32,16 +32,15 @@ function Home() {
 
   return (
     <div>
-      <Header />
+      <Header showSearch={true} />
       <ImageCarousal images={[img1, img2, img3, img4]} />
       <div className="rows">
         {isLoading ? (
           <Loader />
-          ) : (
-            <div className="row_posters">
-            {movies.map(movie => {
+        ) : (
+          <div className="row_posters">
+            {movies.map((movie) => {
               return (
-                
                 <div className="col">
                   <h5 className="text-center mb-3">{movie.name}</h5>
                   <img
@@ -51,7 +50,6 @@ function Home() {
                     key={movie.id}
                   />
                 </div>
-                
               );
             })}
           </div>

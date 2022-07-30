@@ -1,21 +1,26 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import Header from '../../components/header/Header';
+import Footer from "../../components/footer/Footer";
+import { useState, useEffect } from "react";
+import './client.css';
+import Theatres from '../../components/theatresList/Theatres';
+
 
 function Client() {
-  const navigate = useNavigate();
-  const logoutFn = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+  
+  const name = localStorage.getItem("name");
 
   return (
-    <div className="container d-flex justify-content-center text-light">
-      <h3>Client</h3>
-      <div className="">
-        <button className="btn btn-sm btn-warning mt-5" onClick={logoutFn}>
-          Logout
-        </button>
+    <div>
+      <Header showSearch={false}/>
+      <div className="main_content text-light mt-3 vh-80">
+        <h2>Welcome{name},</h2>
+        <p className='fs-5'>please check these products below</p>
+
+        <Theatres /> 
       </div>
+      <Footer />
     </div>
   );
 }
