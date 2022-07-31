@@ -14,7 +14,7 @@ function Client() {
   return (
     <div>
       <Header showSearch={false}/>
-      <div className="main_content text-light mt-3 vh-80">
+      <div className="main_content text-light mt-3">
         <h2>Welcome{name},</h2>
         <p className='fs-5'>please check these products below</p>
 
