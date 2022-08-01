@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllTheatres } from "../../api/theatres";
+import { getAllTheatres, updateTheatre } from "../../api/theatres";
 import MaterialTable from "@material-table/core";
 import Delete from "@material-ui/icons/Delete";
 import Edit from "@material-ui/icons/Edit";
@@ -13,9 +13,14 @@ function Theatres() {
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    //api call tofetch theatre list
+    // on success of data, set it to state --> setTheatresList
+  }, []);
+
+  const fetchTheatres = () => {
     getAllTheatres()
       .then((response) => {
-        const { data, status, message } = response;
+        const { data, status } = response;
         if (status === 200) {
           console.log(data);
           setTheatresList(data);
@@ -24,9 +29,7 @@ function Theatres() {
       .catch((error) => {
         console.log(error);
       });
-    //api call tofetch theatre list
-    // on success of data, set it to state --> setTheatresList
-  }, []);
+  };
 
   const editTheatre = (rowData) => {
     setSelectedTheatre({ ...rowData });
@@ -43,12 +46,42 @@ function Theatres() {
   };
 
   const handleTicketsChange = (e) => {
-   
+    const tempTheatre = { ...selectedTheatre };
+
+    if (e.target.name === "name") {
+      tempTheatre.name = e.target.value;
+    } else if (e.target.name === "city") {
+      tempTheatre.city = e.target.value;
+    } else if (e.target.name === "description") {
+      tempTheatre.description = e.target.value;
+    } else if (e.target.name === "pinCode") {
+      tempTheatre.pinCode = e.target.value;
+    }
+    setSelectedTheatre(tempTheatre);
   };
 
   const handleEditTheatreSubmit = (e) => {
-    
-    
+    const id = selectedTheatre._id;
+
+    try {
+      updateTheatre(id, selectedTheatre)
+        .then((response) => {
+          const { message, status } = response;
+          if (status === 200) {
+            setSelectedTheatre({});
+            setShowEditModal(false);
+            fetchTheatres();
+          } else if (message) {
+            setErrorMessage(message);
+          }
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+        });
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+
     // api call to save the theatre data
     // send the id and the theatre data
 
@@ -58,14 +91,15 @@ function Theatres() {
     // empty the selected theatre
 
     // on error, i will show the error
-
-  }
+    e.preventDefault();
+  };
 
   //return the material table withh all data in the list
   return (
     <div className="container">
       <MaterialTable
         data={theatresList}
+        title="Theatre Lists"
         columns={[
           {
             title: "Theater Name",
@@ -126,6 +160,7 @@ function Theatres() {
           },
         }}
       />
+      {showEditModal && (
       <Modal
         show={showEditModal}
         onHide={() => {
@@ -210,6 +245,7 @@ function Theatres() {
           {errorMessage && <div className="text-danger">{errorMessage}</div>}
         </Modal.Body>
       </Modal>
+      )}
     </div>
   );
 }
