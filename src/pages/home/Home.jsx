@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../../components/header/Header";
 import ImageCarousal from "../../components/imageCarousal/ImageCarousal";
 import img1 from "../../assets/1.avif";
@@ -8,11 +7,12 @@ import img4 from "../../assets/4.avif";
 import Footer from "../../components/footer/Footer";
 import { getAllMovies } from "../../api/movies";
 import { useState, useEffect } from "react";
-import "./home.css";
 import Loader from "../../components/loader/Loader";
+import "./home.css";
 
 function Home() {
   const [movies, setMovies] = useState([]);
+  const [allmovies, setAllmovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ function Home() {
         const { data, status } = response;
         if (status === 200) {
           setMovies(data);
+          setAllmovies(data);
           setLoading(false);
         }
       })
@@ -30,9 +31,16 @@ function Home() {
       });
   }, []);
 
+  const filterMoviesBySearch = searchText => {
+    const filteredMovies = allmovies.filter(movie => {
+      return movie.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+    setMovies(filteredMovies);
+  };
+
   return (
     <div>
-      <Header showSearch={true} />
+      <Header showSearch={true} filterMoviesBySearch={filterMoviesBySearch} />
       <ImageCarousal images={[img1, img2, img3, img4]} />
       <div className="rows">
         {isLoading ? (

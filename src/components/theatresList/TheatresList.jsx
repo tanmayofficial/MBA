@@ -6,7 +6,7 @@ import Edit from "@material-ui/icons/Edit";
 import { ExportCsv, ExportPdf } from "@material-table/exporters";
 import { Modal } from "react-bootstrap";
 
-function Theatres() {
+function TheatresList() {
   const [theatresList, setTheatresList] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedTheatre, setSelectedTheatre] = useState({});
@@ -15,6 +15,7 @@ function Theatres() {
   useEffect(() => {
     //api call tofetch theatre list
     // on success of data, set it to state --> setTheatresList
+    fetchTheatres()
   }, []);
 
   const fetchTheatres = () => {
@@ -99,7 +100,7 @@ function Theatres() {
     <div className="container">
       <MaterialTable
         data={theatresList}
-        title="Theatre Lists"
+        title="Theatres List"
         columns={[
           {
             title: "Theater Name",
@@ -161,93 +162,93 @@ function Theatres() {
         }}
       />
       {showEditModal && (
-      <Modal
-        show={showEditModal}
-        onHide={() => {
-          setShowEditModal(false);
-        }}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>EDIT THEATRE</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <h4>TheatreId: {selectedTheatre._id}</h4>
-          </div>
-
-          <hr />
-
-          <form onSubmit={handleEditTheatreSubmit}>
+        <Modal
+          show={showEditModal}
+          onHide={() => {
+            setShowEditModal(false);
+          }}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>EDIT THEATRE</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <div>
-              <label>
-                Theatre Name:
-                <input
-                  type="text"
-                  value={selectedTheatre.name}
-                  name="name"
-                  onChange={handleTicketsChange}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                Theatre City:
-                <input
-                  type="text"
-                  value={selectedTheatre.city}
-                  name="city"
-                  onChange={handleTicketsChange}
-                />
-              </label>
+              <h4>TheatreId: {selectedTheatre._id}</h4>
             </div>
 
-            <div>
-              <label>
-                Theatre Pincode:
-                <input
-                  type="text"
-                  value={selectedTheatre.pinCode}
-                  name="pinCode"
-                  onChange={handleTicketsChange}
-                />
-              </label>
-            </div>
+            <hr />
 
-            <div>
-              <label>
-                Theatre Description:
-                <textarea name="description" onChange={handleTicketsChange}>
-                  {selectedTheatre.description}
-                </textarea>
-              </label>
-            </div>
+            <form onSubmit={handleEditTheatreSubmit}>
+              <div>
+                <label>
+                  Theatre Name:
+                  <input
+                    type="text"
+                    value={selectedTheatre.name}
+                    name="name"
+                    onChange={handleTicketsChange}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  Theatre City:
+                  <input
+                    type="text"
+                    value={selectedTheatre.city}
+                    name="city"
+                    onChange={handleTicketsChange}
+                  />
+                </label>
+              </div>
 
-            <div>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => {
-                  setShowEditModal(false);
-                }}
-              >
-                Cancel
-              </button>
+              <div>
+                <label>
+                  Theatre Pincode:
+                  <input
+                    type="text"
+                    value={selectedTheatre.pinCode}
+                    name="pinCode"
+                    onChange={handleTicketsChange}
+                  />
+                </label>
+              </div>
 
-              <button type="submit" className="btn btn-primary">
-                Update
-              </button>
-            </div>
-          </form>
+              <div>
+                <label>
+                  Theatre Description:
+                  <textarea name="description" onChange={handleTicketsChange}>
+                    {selectedTheatre.description}
+                  </textarea>
+                </label>
+              </div>
 
-          {errorMessage && <div className="text-danger">{errorMessage}</div>}
-        </Modal.Body>
-      </Modal>
+              <div>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setShowEditModal(false);
+                  }}
+                >
+                  Cancel
+                </button>
+
+                <button type="submit" className="btn btn-primary">
+                  Update
+                </button>
+              </div>
+            </form>
+
+            {errorMessage && <div className="text-danger">{errorMessage}</div>}
+          </Modal.Body>
+        </Modal>
       )}
     </div>
   );
 }
 
-export default Theatres;
+export default TheatresList;

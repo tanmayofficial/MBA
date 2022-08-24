@@ -6,7 +6,7 @@ function Footer() {
     <div className="bg-light shadow-lg">
       {/* <div className="b-example-divider"></div> */}
       <div className="container">
-        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
           <div className="col-md-4 d-flex align-items-center">
             <span className="text-black">&copy; 2021 Company, Inc</span>
           </div>

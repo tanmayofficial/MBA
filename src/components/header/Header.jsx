@@ -6,9 +6,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 function Header(props) {
-  const navigate = useNavigate();
   const [searchText, setSearchText] = useState("");
   const { filterMoviesBySearch, showSearch } = props;
+  const navigate = useNavigate();
 
   const logoutFn = () => {
     localStorage.clear();
