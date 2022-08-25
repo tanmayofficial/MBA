@@ -136,11 +136,6 @@ function TheatresList() {
             onClick: (event, rowData) => deleteTheatre(rowData),
           },
         ]}
-        /* {
-            icon: Delete,
-            tooltip: "Delete Theater",
-            onClick: (event, rowData) => deleteTheatre(rowData),
-        }, */
 
         options={{
           actionsColumnIndex: -1,

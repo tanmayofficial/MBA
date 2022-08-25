@@ -1,19 +1,22 @@
-import Header from "../../components/header/Header";
 import ImageCarousal from "../../components/imageCarousal/ImageCarousal";
 import img1 from "../../assets/1.avif";
 import img2 from "../../assets/2.avif";
 import img3 from "../../assets/3.avif";
 import img4 from "../../assets/4.avif";
+import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
+import Loader from "../../components/loader/Loader";
 import { getAllMovies } from "../../api/movies";
 import { useState, useEffect } from "react";
-import Loader from "../../components/loader/Loader";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 
 function Home() {
   const [movies, setMovies] = useState([]);
   const [allmovies, setAllmovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true);
@@ -38,6 +41,10 @@ function Home() {
     setMovies(filteredMovies);
   };
 
+  const handleGotoDetailPage = movieId => {
+    navigate(`/movie-detail/${movieId}`);
+  };
+
   return (
     <div>
       <Header showSearch={true} filterMoviesBySearch={filterMoviesBySearch} />
@@ -49,7 +56,9 @@ function Home() {
           <div className="row_posters">
             {movies.map((movie) => {
               return (
-                <div className="col">
+                <div className="col" onClick={() => {
+                  handleGotoDetailPage(movie._id);
+                }}>
                   <h5 className="text-center mb-3">{movie.name}</h5>
                   <img
                     src={movie.posterUrl}

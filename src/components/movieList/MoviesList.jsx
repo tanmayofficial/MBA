@@ -9,7 +9,6 @@ import {
   updateMovieDetails,
 } from "../../api/movies";
 import { Modal } from "react-bootstrap";
-// import moment from "moment";
 
 function MoviesList() {
   const [moviesList, setMoviesList] = useState([]);
@@ -22,6 +21,11 @@ function MoviesList() {
   }, []);
 
   const fetchMovies = () => {
+    /*
+     * 1. api call to fetch list of movies
+     * 2. if successful show, list of movies
+     * 3. else show the error message
+     */
     getAllMovies()
       .then(res => {
         const { status, data, message } = res;
@@ -33,12 +37,6 @@ function MoviesList() {
       .catch(err => {
         console.log(err.message);
       });
-
-    /**
-     * 1. api call to fetch list of movies
-     * 2. if successful show, list of movies
-     *
-     */
   };
 
   const editMovie = rowData => {
@@ -47,13 +45,12 @@ function MoviesList() {
   };
 
   const deleteMovie = rowData => {
-    console.log(rowData);
+    console.log('rowData', rowData);
     const movieId = rowData._id;
 
     removeMovie(movieId)
       .then(res => {
         console.log(res);
-
         if (res.status === 200) {
           fetchMovies();
         }
@@ -95,7 +92,6 @@ function MoviesList() {
     } else if (e.target.name === "description") {
       tempMovie.description = e.target.value;
     }
-
     setSelectedMovie(tempMovie);
   };
 
@@ -161,7 +157,7 @@ function MoviesList() {
             tooltip: "Edit Movie",
             onClick: (event, rowData) => editMovie(rowData),
           },
-          {
+          { // we can't delete a movie as a client, only admin can delete a movie
             icon: Delete,
             tooltip: "Delete Movie",
             onClick: (event, rowData) => deleteMovie(rowData),
@@ -277,6 +273,11 @@ function MoviesList() {
                 </button>
               </div>
             </form>
+
+            {errorMessage && (
+              <div className='text-danger'>{errorMessage}</div>
+            )}
+
           </Modal.Body>
         </Modal>
       )}
